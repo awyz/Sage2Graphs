@@ -49,3 +49,14 @@ function customFullStateHandler(state) {
 function handlerForZoomStateValue(value) {
 	console.log("State was updated, current zoom value:", value);
 }
+
+function executeSwitch() {
+	var b = [1,2,3,4,5];
+	var a = [10,20,30,40,50];
+	callComplex(a);
+}
+
+function plotFromContainer(param) {
+	Plotly.newPlot('myDiv', param.complexData, param.complexLayout);
+
+}

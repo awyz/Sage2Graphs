@@ -557,13 +557,6 @@ var sage2_webview_appCoreV01 = SAGE2_App.extend({
 
 
 
-		if (true) {
-			entries.push({
-				description: "Switch data",
-				callback: "toggleData",
-				parameters: {}
-			});
-		}
 
 
 
@@ -571,29 +564,6 @@ var sage2_webview_appCoreV01 = SAGE2_App.extend({
 		return entries;
 	},
 
-	toggleData: function() {
-		var equal = false;
-		var b = [1,2,3,4,5];
-		var a = [10,20,30,40,50];
-		for (var i = 0; i < 5; i++) {
-			if (globalX[i] != b[i]) {
-				console.log("is big, go small");
-				globalX = b;
-				break;
-			}
-			else {
-				equal = true;
-			}
-		}
-
-		if (equal) {
-			console.log("is small, go big");
-			globalX = a;
-		}
-		// Plotly.newPlot('myDiv', globalX, layout);
-		callComplex(globalX);
-		// document.location.reload();
-	},
 
 	zoomPage: function(responseObject) {
 		if (this.isElectron()) {

@@ -1,16 +1,4 @@
-// Functions to test complexity for scatter plot
 
-function extendTrace() {
-    let yval = Math.ceil(Math.random()*1000);
-    let xval = Math.ceil(Math.random()*1000);
-    console.log("x: " + xval + " y: " + yval);
-
-    Plotly.extendTraces(complex, {x: [[xval]], y: [[yval]]}, [0])
-}
-
-function callComplex(data) {
-  console.log("data: " + data[1]);
-}
 
 /////////////////////////////////////////////////////////////// Click events //////////////////////////////////////////
 
@@ -26,7 +14,6 @@ var syncPlot = document.getElementById('myDiv'),
         mode:'markers', marker:{size:16} } ],
     layout = {
         hovermode:'closest',
-        title:'Click on Points'
     };
 
 Plotly.newPlot('myDiv', data, layout);
@@ -79,3 +66,30 @@ syncPlot2.on('plotly_hover', function (eventdataSync2){
     .on('plotly_unhover',function(){
         Plotly.Fx.hover('myDiv',[]);
     });
+
+//////////////////////// Functions ///////////////////////////////////////////
+// Functions to test complexity for scatter plot
+
+function extendTrace() {
+    let yval = Math.ceil(Math.random()*1000);
+    let xval = Math.ceil(Math.random()*1000);
+    console.log("x: " + xval + " y: " + yval);
+
+    Plotly.extendTraces(complex, {x: [[xval]], y: [[yval]]}, [0]);
+}
+
+function callComplex(newData) {
+  console.log("x data: " + newData[0]);
+  console.log("y data: " + newData[1]);
+
+  complexData = [ { x:newData[0], y:newData[1], type:'scatter',
+      mode:'markers', marker:{size:16} } ]
+
+  complexLayout = {
+      hovermode:'closest',
+      title:'Alternate Data'
+  }
+//  Plotly.newPlot('myDiv', complexData, complexLayout);
+  //this.callFunctionInWebpage("plotFromContainer", {complexData, complexLayout});
+  return {complexData, complexLayout};
+}

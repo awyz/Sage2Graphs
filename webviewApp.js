@@ -58,7 +58,7 @@ var webviewApp = sage2_webview_appCoreV01_extendWebview({
 	getContextEntries: function() {
 		// OPTIONAL
 		// This can be used to allow UI interaction to your webpage
-		// Entires are added after entries of enableUiContextMenuEntries 
+		// Entires are added after entries of enableUiContextMenuEntries
 		var entries = [];
 		// entries.push({
 		// 	description: "This text is seen in the UI",
@@ -68,8 +68,48 @@ var webviewApp = sage2_webview_appCoreV01_extendWebview({
 		// 	// Each of the parameter properties will be in that object
 		// 	// Some properties are reserved and may be automatically filled in.
 		// });
+		entries.push({
+			description: "Switch data",
+			callback: "toggleData",
+			parameters: {}
+		});
 		return entries;
 	},
+
+	toggleData: function() {
+		var equal = false;
+		var b = [[10,20,30,40,50], [5, 30, 1, 2, 10]];
+		var a = [[10,20,30,40,50], [1,2,3,4,5]];
+		for (var i = 0; i < 5; i++) {
+			if (globalX[1][i] != b[1][i]) {
+				console.log("is big, go small");
+				globalX = b;
+				break;
+			}
+			else {
+				equal = true;
+			}
+		}
+
+		if (equal) {
+			console.log("is small, go big");
+			globalX = a;
+		}
+		// Plotly.newPlot('myDiv', globalX, layout);
+		var i = callComplex(globalX);
+		this.callFunctionInWebpage("plotFromContainer", i);
+
+		// document.location.reload();
+	},
+	//3 functions to handle click, select, and hover
+	handleHover: function(data) {
+		console.log(data);
+		this.hoverData = data;
+	},
+	getHoverData: function() {
+		return this.hoverData;
+	}
+	// data = param, store data like this.hoverData
 
 	// ----------------------------------------------------------------------------------------------------
 	// ----------------------------------------------------------------------------------------------------
