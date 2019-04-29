@@ -60,3 +60,15 @@ function plotFromContainer(param) {
 	Plotly.newPlot('myDiv', param.complexData, param.complexLayout);
 
 }
+
+function sendClickToContainer(param) { // param = double array
+	SAGE2_AppState.callFunctionInContainer("handleClick", param);
+}
+
+function sendHoverToContainer(param) { // param = double array
+	SAGE2_AppState.callFunctionInContainer("handleHover", param);
+}
+
+function sendSelectionToContainer(param) {
+	SAGE2_AppState.callFunctionInContainer("handleSelection", param);
+}

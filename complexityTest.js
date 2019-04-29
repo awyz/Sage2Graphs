@@ -1,8 +1,5 @@
 
-
 /////////////////////////////////////////////////////////////// Click events //////////////////////////////////////////
-
-
 
 var syncPlot = document.getElementById('myDiv'),
     d3 = Plotly.d3,
@@ -18,21 +15,10 @@ var syncPlot = document.getElementById('myDiv'),
 
 Plotly.newPlot('myDiv', data, layout);
 
-var syncPlot2 = document.getElementById('testDiv'),
-    d32 = Plotly.d3,
-    N2 = 16,
-    x2 = [0],
-    y2 = [0],
-    opacity = 0.25,
-    data = [ { x:x2, y:y2, type:'scatter',
-        mode:'markers', marker:{size:16} } ],
-    layout = {
-        hovermode:'closest',
-    };
-Plotly.newPlot('testDiv', data, layout);
 
-
+// click event
 syncPlot.on('plotly_click', function(data){
+
     var pts = '';
     for(var i=0; i < data.points.length; i++){
 
@@ -40,9 +26,40 @@ syncPlot.on('plotly_click', function(data){
 
         pts = 'x = '+data.points[i].x +'\ny = '+
             data.points[i].y.toPrecision(4) + '\n\n';
-        extendTraceClick(data.points[i].x, data.points[i].y);
+        // extendTraceClick(data.points[i].x, data.points[i].y);
+        clickData(data.points[i].x, data.points[i].y); // actually being called when clicked for now`
     }
 });
+
+// hover event
+syncPlot.on('plotly_hover', function(data){
+    var pts = '';
+    for(var i=0; i < data.points.length; i++){
+
+        console.log("inside for loop");
+
+        pts = 'x = '+data.points[i].x +'\ny = '+
+            data.points[i].y.toPrecision(4) + '\n\n';
+        // extendTraceClick(data.points[i].x, data.points[i].y);
+        hoverData(data.points[i].x, data.points[i].y); // actually being called when clicked for now`
+    }
+});
+
+// selection event
+
+syncPlot.on('plotly_selected', function(eventData) {
+  var x = [];
+  var y = [];
+
+  eventData.points.forEach(function(pt) {
+    x.push(pt.x);
+    y.push(pt.y);
+  })
+  selectionData(x, y);
+});
+
+////////////////////////////////////////////////////////////
+
 
 function extendTraceClick(xC, yC) {
     console.log("x: " + xC + " y: " + yC);
@@ -51,21 +68,6 @@ function extendTraceClick(xC, yC) {
     Plotly.extendTraces(syncPlot2, {x: [[xC]], y: [[yC]]}, [0])
 }
 
-syncPlot2.on('plotly_hover', function (eventdataSync2){
-    var pointNum = eventdataSync2.points[0].pointNumber;
-
-    var xSync2 = eventdataSync2.points[0].x;
-    var ySync2 = eventdataSync2.points[0].y;
-
-    Plotly.Fx.hover('myDiv',[
-
-        { curveNumber: 0, pointNumber:eventdataSync2.points[0].x },
-    ]);
-
-})
-    .on('plotly_unhover',function(){
-        Plotly.Fx.hover('myDiv',[]);
-    });
 
 //////////////////////// Functions ///////////////////////////////////////////
 // Functions to test complexity for scatter plot
@@ -92,4 +94,22 @@ function callComplex(newData) {
 //  Plotly.newPlot('myDiv', complexData, complexLayout);
   //this.callFunctionInWebpage("plotFromContainer", {complexData, complexLayout});
   return {complexData, complexLayout};
+}
+
+function clickData(x, y) {
+  console.log("[ [" + x + "], [" + y + "] ]")
+  return [ [x], [y] ];
+}
+
+function hoverData(x, y) {
+  console.log("[ [" + x + "], [" + y + "] ]")
+  return [ [x], [y] ];
+}
+
+function selectionData(x, y) {
+  // var i;
+  // for (i = 0; i < x.length; i++) {
+    console.log("[ [" + x + "], [" + y + "] ]")
+  // }
+  return [ [x], [y] ];
 }

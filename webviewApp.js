@@ -102,13 +102,27 @@ var webviewApp = sage2_webview_appCoreV01_extendWebview({
 		// document.location.reload();
 	},
 	//3 functions to handle click, select, and hover
+	handleClick: function(data) {
+		console.log(data);
+		this.clickData = data;
+	},
+	getClickData: function() {
+		return this.clickData;
+	},
 	handleHover: function(data) {
 		console.log(data);
 		this.hoverData = data;
 	},
 	getHoverData: function() {
 		return this.hoverData;
-	}
+	},
+	handleSelection: function(data) {
+		console.log(data);
+		this.selectionData = data;
+	},
+	getSelectionData: function() {
+		return this.selectionData;
+	},
 	// data = param, store data like this.hoverData
 
 	// ----------------------------------------------------------------------------------------------------
