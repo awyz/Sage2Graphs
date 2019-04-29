@@ -1,5 +1,5 @@
 //
-// SAGE2 application: webviewApp
+// SAGE2 application: plotlyChart
 // by: Dylan Kobayashi <dylank@hawaii.edu>
 //
 // Copyright (c) 2018
@@ -10,7 +10,7 @@
 // Please see https://bitbucket.org/sage2/sage2/wiki/SAGE2%20Webview%20Container for instructions
 
 
-var webviewApp = sage2_webview_appCoreV01_extendWebview({
+var plotlyChart = sage2_webview_appCoreV01_extendWebview({
 	webpageAppSettings: {
 		setSageAppBackgroundColor: true,  // Web pages without background values will be transparent.
 		backgroundColor: "white",         // Used if above is true, can also use rgb and hex strings
@@ -76,7 +76,13 @@ var webviewApp = sage2_webview_appCoreV01_extendWebview({
 		return entries;
 	},
 
-	toggleData: function() {
+	toggleData: function(override) {
+		if (override) {
+			// Plotly.newPlot('myDiv', globalX, layout);
+			var i = this.callComplex(override);
+			this.callFunctionInWebpage("plotFromContainer", i);
+			return;
+		}
 		var equal = false;
 		var b = [[10,20,30,40,50], [5, 30, 1, 2, 10]];
 		var a = [[10,20,30,40,50], [1,2,3,4,5]];
@@ -96,7 +102,7 @@ var webviewApp = sage2_webview_appCoreV01_extendWebview({
 			globalX = a;
 		}
 		// Plotly.newPlot('myDiv', globalX, layout);
-		var i = callComplex(globalX);
+		var i = this.callComplex(globalX);
 		this.callFunctionInWebpage("plotFromContainer", i);
 
 		// document.location.reload();
@@ -117,13 +123,41 @@ var webviewApp = sage2_webview_appCoreV01_extendWebview({
 		return this.hoverData;
 	},
 	handleSelection: function(data) {
-		console.log(data);
+		console.log("In container:", data);
+		console.log(this.id);
 		this.selectionData = data;
 	},
+
+
+
 	getSelectionData: function() {
 		return this.selectionData;
 	},
 	// data = param, store data like this.hoverData
+
+
+
+
+	callComplex: function(newData) {
+		console.log("x data: " + newData[0]);
+		console.log("y data: " + newData[1]);
+	
+		let complexData = [ { x:newData[0], y:newData[1], type:'scatter',
+				mode:'markers', marker:{size:16} } ];
+	
+		let complexLayout = {
+				hovermode:'closest',
+				title:'Alternate Data'
+		};
+	//  Plotly.newPlot('myDiv', complexData, complexLayout);
+		//this.callFunctionInWebpage("plotFromContainer", {complexData, complexLayout});
+		return {complexData, complexLayout};
+	},
+
+
+
+
+
 
 	// ----------------------------------------------------------------------------------------------------
 	// ----------------------------------------------------------------------------------------------------

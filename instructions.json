@@ -1,15 +1,13 @@
 {
-	"main_script": "webviewApp.js",
+	"main_script": "plotlyChart.js",
 	"icon": "mochi.png",
 	"width": 1280,
 	"height": 720,
 	"resize": "free",
 	"animation": false,
 	"dependencies": [
-		"complexityTest.js",
 		"WebviewAppCore.js",
-		"plotly-latest.min.js",
-		"random.js"
+		"plotly-latest.min.js"
 	],
 	"load": {
 		"url": "/uploads/web/index.html",
@@ -17,10 +15,10 @@
 		"zoom": 1.2,
 		"mode": "desktop"
 	},
-	"title": "webviewApp",
+	"title": "plotlyChart",
 	"version": "0.1",
-	"description": "SAGE2 application webviewApp test",
-	"keywords": [ "sage2", "webviewApp" ],
+	"description": "SAGE2 application plotlyChart test",
+	"keywords": [ "sage2", "plotlyChart" ],
 	"author": "Dylan Kobayashi <dylank@hawaii.edu>",
 	"license": "SAGE2-Software-License"
 }

@@ -109,7 +109,8 @@ function hoverData(x, y) {
 function selectionData(x, y) {
   // var i;
   // for (i = 0; i < x.length; i++) {
-    console.log("[ [" + x + "], [" + y + "] ]")
+		// console.log("[ [" + x + "], [" + y + "] ]")
+		sendSelectionToContainer([x,y]);
   // }
   return [ [x], [y] ];
 }
