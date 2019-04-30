@@ -56,9 +56,7 @@ function plotFromContainer(param) {
 
 // Switch scatter plot to a line chart
 function restyleFromContainer(param) {
-	console.log("Hello")
 	Plotly.restyle('myDiv', param.switchData, param.switchLayout);
-	console.log("Goodbye");
 }
 
 function sendClickToContainer(param) {
