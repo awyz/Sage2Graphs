@@ -1,5 +1,5 @@
 //
-// SAGE2 application: plotlyChart
+// SAGE2 application: FlyChart
 // by: Dylan Kobayashi <dylank@hawaii.edu>
 //
 // Copyright (c) 2018
@@ -53,7 +53,12 @@ var plotlyChart = sage2_webview_appCoreV01_extendWebview({
 		// FPS only works if instructions sets animation true
 	},
 	resize: function() {
-		// OPTIONAL
+		this.callFunctionInWebpage();
+		this.resizeElement = document.getElementById("myDiv");
+		this.resizeElement.style.width  = this.sage2_width  + "px";
+		this.resizeElement.style.height = this.sage2_height + "px";
+
+		this.refresh();
 	},
 	getContextEntries: function() {
 		// OPTIONAL
@@ -73,70 +78,84 @@ var plotlyChart = sage2_webview_appCoreV01_extendWebview({
 			callback: "toggleData",
 			parameters: {}
 		});
-		return entries;
-	},
+
+	entries.push({
+		description: "Line chart",
+		callback: "lineChart",
+		parameters: {}
+	});
+	return entries;
+},
 
 	toggleData: function(override) {
 		if (override) {
-			// Plotly.newPlot('myDiv', globalX, layout);
 			var i = this.callComplex(override);
 			this.callFunctionInWebpage("plotFromContainer", i);
 			return;
 		}
-		var equal = false;
-		var b = [[10,20,30,40,50], [5, 30, 1, 2, 10]];
-		var a = [[10,20,30,40,50], [1,2,3,4,5]];
-		for (var i = 0; i < 5; i++) {
-			if (globalX[1][i] != b[1][i]) {
-				console.log("is big, go small");
-				globalX = b;
-				break;
-			}
-			else {
-				equal = true;
-			}
-		}
-
-		if (equal) {
-			console.log("is small, go big");
-			globalX = a;
-		}
-		// Plotly.newPlot('myDiv', globalX, layout);
-		var i = this.callComplex(globalX);
-		this.callFunctionInWebpage("plotFromContainer", i);
-
-		// document.location.reload();
 	},
-	//3 functions to handle click, select, and hover
+
+lineChart: function() {
+
+	var trace1 = {
+	  type: 'scatter',
+	  x: [1, 2, 3, 4],
+	  y: [10, 15, 13, 17],
+	  mode: 'lines',
+	  name: 'Red',
+	  line: {
+	    color: 'rgb(219, 64, 82)',
+	    width: 3
+	  }
+	};
+
+	var trace2 = {
+	  type: 'scatter',
+	  x: [1, 2, 3, 4],
+	  y: [12, 9, 15, 12],
+	  mode: 'lines',
+	  name: 'Blue',
+	  line: {
+	    color: 'rgb(55, 128, 191)',
+	    width: 1
+	  }
+	};
+
+	var lineData = [trace1, trace2];
+
+	var i = this.scatterToLine(lineData);
+	console.log("scatter to line ret: ", i);
+	console.log("lineData: ", lineData);
+	this.callFunctionInWebpage("restyleFromContainer", i);
+},
+
 	handleClick: function(data) {
-		console.log(data);
+		console.log("In container:", data);
 		this.clickData = data;
 	},
+
 	getClickData: function() {
 		return this.clickData;
 	},
+
 	handleHover: function(data) {
-		console.log(data);
+		console.log("In container:", data);
 		this.hoverData = data;
 	},
+
 	getHoverData: function() {
 		return this.hoverData;
 	},
+
 	handleSelection: function(data) {
 		console.log("In container:", data);
 		console.log(this.id);
 		this.selectionData = data;
 	},
 
-
-
 	getSelectionData: function() {
 		return this.selectionData;
 	},
-	// data = param, store data like this.hoverData
-
-
-
 
 	callComplex: function(newData) {
 		console.log("x data: " + newData[0]);
@@ -149,15 +168,21 @@ var plotlyChart = sage2_webview_appCoreV01_extendWebview({
 				hovermode:'closest',
 				title:'Alternate Data'
 		};
-	//  Plotly.newPlot('myDiv', complexData, complexLayout);
-		//this.callFunctionInWebpage("plotFromContainer", {complexData, complexLayout});
 		return {complexData, complexLayout};
 	},
 
+	scatterToLine: function(data) {
+	  var switchData = [{
+	    x:data[0], y:data[1],
+	    type:'scatter', mode: 'lines'
+	  }];
 
+	  var switchLayout = {
+	    hovermode: 'closest',
+	  };
 
-
-
+	  return {switchData, switchLayout};
+	},
 
 	// ----------------------------------------------------------------------------------------------------
 	// ----------------------------------------------------------------------------------------------------

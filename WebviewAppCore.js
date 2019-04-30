@@ -7,11 +7,6 @@
 
 "use strict";
 
-
-/* global  require */
-
-var globalX = [1, 2, 3, 4, 5];
-
 // This is used to ensure zips works
 // Most of this file will be reduced as it should not need to be directly edited.
 

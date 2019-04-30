@@ -50,22 +50,22 @@ function handlerForZoomStateValue(value) {
 	console.log("State was updated, current zoom value:", value);
 }
 
-function executeSwitch() {
-	var b = [1,2,3,4,5];
-	var a = [10,20,30,40,50];
-	callComplex(a);
-}
-
 function plotFromContainer(param) {
 	Plotly.restyle('myDiv', param.complexData, param.complexLayout);
-
 }
 
-function sendClickToContainer(param) { // param = double array
+// Switch scatter plot to a line chart
+function restyleFromContainer(param) {
+	console.log("Hello")
+	Plotly.restyle('myDiv', param.switchData, param.switchLayout);
+	console.log("Goodbye");
+}
+
+function sendClickToContainer(param) {
 	SAGE2_AppState.callFunctionInContainer("handleClick", param);
 }
 
-function sendHoverToContainer(param) { // param = double array
+function sendHoverToContainer(param) {
 	SAGE2_AppState.callFunctionInContainer("handleHover", param);
 }
 
