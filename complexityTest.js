@@ -46,7 +46,6 @@ syncPlot.on('plotly_hover', function(data){
 });
 
 // selection event
-
 syncPlot.on('plotly_selected', function(eventData) {
   var x = [];
   var y = [];
@@ -85,7 +84,7 @@ function callComplex(newData) {
   console.log("y data: " + newData[1]);
 
   complexData = [ { x:newData[0], y:newData[1], type:'scatter',
-      mode:'markers', marker:{size:16} } ]
+      mode:'markers', marker:{size:16} } ];
 
   complexLayout = {
       hovermode:'closest',
@@ -97,19 +96,16 @@ function callComplex(newData) {
 }
 
 function clickData(x, y) {
-  console.log("[ [" + x + "], [" + y + "] ]")
+  console.log("[ [" + x + "], [" + y + "] ]");
   return [ [x], [y] ];
 }
 
 function hoverData(x, y) {
-  console.log("[ [" + x + "], [" + y + "] ]")
+  console.log("[ [" + x + "], [" + y + "] ]");
   return [ [x], [y] ];
 }
 
 function selectionData(x, y) {
-  // var i;
-  // for (i = 0; i < x.length; i++) {
-    console.log("[ [" + x + "], [" + y + "] ]")
-  // }
+  console.log("[ [" + x + "], [" + y + "] ]");
   return [ [x], [y] ];
 }

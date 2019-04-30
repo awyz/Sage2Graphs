@@ -57,7 +57,7 @@ function executeSwitch() {
 }
 
 function plotFromContainer(param) {
-	Plotly.newPlot('myDiv', param.complexData, param.complexLayout);
+	Plotly.restyle('myDiv', param.complexData, param.complexLayout);
 
 }
 
