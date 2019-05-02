@@ -50,9 +50,22 @@ function handlerForZoomStateValue(value) {
 	console.log("State was updated, current zoom value:", value);
 }
 
+// function plotFromContainer(param) {
+// 	Plotly.restyle('myDiv', param.complexData, param.complexLayout);
+// }
+
 function plotFromContainer(param) {
-	Plotly.restyle('myDiv', param.complexData, param.complexLayout);
+	Plotly.newPlot('myDiv', param.complexData, param.complexLayout);
+	addEventsToPlot();
+	console.log("activated?");
 }
+
+function redrawPlot() {
+	let chart = document.getElementById("myDiv");
+	Plotly.newPlot('myDiv', chart.data, chart.layout);
+	addEventsToPlot();
+}
+
 
 // Switch scatter plot to a line chart
 function restyleFromContainer(param) {

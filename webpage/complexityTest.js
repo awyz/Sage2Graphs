@@ -90,6 +90,7 @@ Plotly.newPlot('myDiv', data, layout);
 syncPlot.on('plotly_click', function(data){
     var pts = '';
     for(var i=0; i < data.points.length; i++){
+			console.log("checking click", data);
         pts = 'x = '+data.points[i].x +'\ny = '+
             data.points[i].y.toPrecision(4) + '\n\n';
         clickData(data.points[i].x, data.points[i].y);
@@ -117,6 +118,51 @@ syncPlot.on('plotly_selected', function(eventData) {
   })
   selectionData(x, y);
 });
+
+
+
+function addEventsToPlot() {
+
+	syncPlot = document.getElementById("myDiv");
+	
+syncPlot.on('plotly_click', function(data){
+	var pts = '';
+	for(var i=0; i < data.points.length; i++){
+			pts = 'x = '+data.points[i].x +'\ny = '+
+					data.points[i].y.toPrecision(4) + '\n\n';
+			clickData(data.points[i].x, data.points[i].y);
+	}
+});
+
+
+syncPlot.on('plotly_hover', function(data){
+	var pts = '';
+	for(var i=0; i < data.points.length; i++){
+			pts = 'x = '+data.points[i].x +'\ny = '+
+					data.points[i].y.toPrecision(4) + '\n\n';
+			hoverData(data.points[i].x, data.points[i].y);
+	}
+});
+
+// selection event
+	syncPlot.on('plotly_selected', function(eventData) {
+		var x = [];
+		var y = [];
+
+		eventData.points.forEach(function(pt) {
+			x.push(pt.x);
+			y.push(pt.y);
+		})
+		selectionData(x, y);
+	});
+
+}
+
+
+
+
+
+
 
 
 function callComplex(newData) {

@@ -53,12 +53,13 @@ var plotlyChart = sage2_webview_appCoreV01_extendWebview({
 		// FPS only works if instructions sets animation true
 	},
 	resize: function() {
-		this.callFunctionInWebpage();
-		this.resizeElement = document.getElementById("myDiv");
-		this.resizeElement.style.width  = this.sage2_width  + "px";
-		this.resizeElement.style.height = this.sage2_height + "px";
+		// this.callFunctionInWebpage();
+		// this.resizeElement = document.getElementById("myDiv");
+		// this.resizeElement.style.width  = this.sage2_width  + "px";
+		// this.resizeElement.style.height = this.sage2_height + "px";
 
-		this.refresh();
+		// this.refresh();
+		this.callFunctionInWebpage("redrawPlot", null);
 	},
 	getContextEntries: function() {
 		// OPTIONAL
@@ -160,6 +161,28 @@ lineChart: function() {
 	handleDiv: function(element) {
 		return this.callFunctionInWebpage("sendDivToContainer");
 	},
+
+
+	graphLoadCallback: function() {
+		var graphDiv = handleDiv();
+
+		let widthPercent = this.sage2_width / this.graphDiv.offsetWidth;
+		let heightPercent = this.sage2_height / this.graphDiv.offsetHeight;
+
+		// Use the smaller multiplier to keep in view
+		if (widthPercent < heightPercent) {
+			this.graphDiv.style.width = this.graphDiv.offsetWidth  * widthPercent + "px";
+			this.graphDiv.style.height = this.graphDiv.offsetHeight * widthPercent + "px";
+		} else {
+			this.graphDiv.style.width = this.graphDiv.offsetWidth  * heightPercent + "px";
+			this.graphDiv.style.height = this.graphDiv.offsetHeight * heightPercent + "px";
+		}
+	},
+
+
+
+
+	
 
 	callComplex: function(newData) {
 		console.log("x data: " + newData[0]);

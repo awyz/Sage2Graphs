@@ -253,7 +253,6 @@ var sage2_webview_appCoreV01 = SAGE2_App.extend({
 		this.SAGE2Sync(remoteSync); // remote sync
 	},
 	resize: function(date) {
-		this.graphLoadCallback();
 
 		this.element.style.width  = this.sage2_width  + "px";
 		this.element.style.height = this.sage2_height + "px";
@@ -412,25 +411,6 @@ var sage2_webview_appCoreV01 = SAGE2_App.extend({
 			}
 		}
 	},
-	graphLoadCallback: function() {
-		var graphDiv = handleDiv();
-
-		let widthPercent = this.sage2_width / this.graphDiv.offsetWidth;
-		let heightPercent = this.sage2_height / this.graphDiv.offsetHeight;
-
-		// Use the smaller multiplier to keep in view
-		if (widthPercent < heightPercent) {
-			this.graphDiv.style.width = this.graphDiv.offsetWidth  * widthPercent + "px";
-			this.graphDiv.style.height = this.graphDiv.offsetHeight * widthPercent + "px";
-		} else {
-			this.graphDiv.style.width = this.graphDiv.offsetWidth  * heightPercent + "px";
-			this.graphDiv.style.height = this.graphDiv.offsetHeight * heightPercent + "px";
-		}
-	},
-
-
-
-
 
 
 
