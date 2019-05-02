@@ -96,6 +96,7 @@ syncPlot.on('plotly_click', function(data){
     }
 });
 
+
 syncPlot.on('plotly_hover', function(data){
     var pts = '';
     for(var i=0; i < data.points.length; i++){
@@ -157,4 +158,16 @@ function hoverData(x, y) {
 function selectionData(x, y) {
 	sendSelectionToContainer([x,y]);
   return [ x, y ];
+}
+
+function extendTrace() {
+    let yval = Math.ceil(Math.random()*16);
+    let xval = Math.ceil(Math.random()*16);
+    console.log("x: " + xval + " y: " + yval);
+
+    Plotly.extendTraces('myDiv', {x: [[xval]], y: [[yval]]}, [0])
+}
+
+function retDiv() {
+  return document.getElementById('myDiv');
 }

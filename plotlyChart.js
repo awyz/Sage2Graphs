@@ -157,6 +157,10 @@ lineChart: function() {
 		return this.selectionData;
 	},
 
+	handleDiv: function(element) {
+		return this.callFunctionInWebpage("sendDivToContainer");
+	},
+
 	callComplex: function(newData) {
 		console.log("x data: " + newData[0]);
 		console.log("y data: " + newData[1]);

@@ -70,3 +70,7 @@ function sendHoverToContainer(param) {
 function sendSelectionToContainer(param) {
 	SAGE2_AppState.callFunctionInContainer("handleSelection", param);
 }
+
+function sendDivToContainer() {
+	return SAGE2_AppState.callFunctionInContainer("handleDiv");
+}
